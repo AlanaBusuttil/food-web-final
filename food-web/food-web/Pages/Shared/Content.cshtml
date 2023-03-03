@@ -1,0 +1,182 @@
+﻿    @page "/Content"
+    @model food_web.Pages.IndexModel
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <style>
+            /* Global styles */
+
+            body {
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                line-height: 1.5;
+                margin: 20px;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 20px;
+                padding: 0 20px;
+            }
+
+            header {
+                background-color: #333;
+                color: #fff;
+                padding: 20px;
+            }
+
+            footer {
+                padding-top: 50px;
+            }
+
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                nav a {
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+                    nav a:hover {
+                        text-decoration: underline;
+                    }
+
+            main {
+                margin-top: 40px;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            li {
+                margin-bottom: 10px;
+            }
+
+            form {
+                margin-top: 20px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"],
+            textarea {
+                display: block;
+                width: 50%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+
+            button[type="submit"] {
+                display: block;
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                background-color: #333;
+                color: #fff;
+                cursor: pointer;
+            }
+
+                button[type="submit"]:hover {
+                    background-color: #555;
+                }
+
+            /* Update Recipe form styles */
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-control {
+                display: block;
+                width: 50%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <h3>My Recipes</h3>
+        <ul>
+            @foreach (var name in Model.RecipeName)
+            {
+            <li>@name</li>
+            }
+        </ul>
+
+        <h3>Remove Recipe</h3>
+
+        <form method="post" asp-page-handler="Delete">
+            <div>
+                <label for="dish_name">Select recipe to delete:</label>
+                <select id="dish_name" name="dish_name" required>
+                    <option value="">Select a recipe</option>
+                    @foreach (var name in Model.RecipeName)
+                    {
+                    <option value="@name">@name</option>
+                    }
+                </select>
+            </div>
+            <button type="submit">Delete Recipe</button>
+        </form>
+
+
+        <h3>Add New Recipe</h3>
+
+        <form method="post">
+            <div>
+                <label for="dish_name">Name:</label>
+                <input type="text" id="dish_name" name="dish_name" />
+            </div>
+            <div>
+                <label for="cuisine">Cuisine:</label>
+                <textarea id="cuisine" name="cuisine"></textarea>
+            </div>
+            <div>
+                <label for="category">Category:</label>
+                <textarea id="category" name="category"></textarea>
+            </div>
+            <button type="submit">Add Recipe</button>
+        </form>
+
+        <h3>Update Recipe</h3>
+
+        <form method="post" asp-page-handler="Update" class="form">
+            <div class="form-group">
+                <label for="dish_name">Dish Name:</label>
+                <input type="text" class="form-control" id="dish_name" name="dish_name" required>
+            </div>
+            <div class="form-group">
+                <label for="old_cuisine">Old Cuisine:</label>
+                <input type="text" class="form-control" id="old_cuisine" name="old_cuisine" required>
+            </div>
+            <div class="form-group">
+                <label for="new_cuisine">New Cuisine:</label>
+                <input type="text" class="form-control" id="new_cuisine" name="new_cuisine" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <input type="text" class="form-control" id="category" name="category" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Recipe</button>
+        </form>
+
+        <footer>
+            <span>&copy; 2023 - My Website</span>
+        </footer>
+    </body>
+    </html>
